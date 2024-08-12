@@ -1,6 +1,5 @@
 using deVoid.UIFramework;
 using UnityEngine;
-
 public class UIMainMenuManager : MonoBehaviour
 {
     [SerializeField] private UISettings _defaultUISetting = null;

@@ -11,6 +11,7 @@ TagManager:
   - 
   - Water
   - UI
+  - game
   - 
   - 
   - 
@@ -34,9 +35,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - Slot
+  - DropZone
   m_SortingLayers:
   - name: Default
     uniqueID: 0
