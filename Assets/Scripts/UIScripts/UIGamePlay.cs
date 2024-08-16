@@ -1,4 +1,3 @@
-using System;
 using deVoid.UIFramework;
 using TMPro;
 using UnityEngine;

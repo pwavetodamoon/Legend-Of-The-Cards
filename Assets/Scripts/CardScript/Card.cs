@@ -1,9 +1,8 @@
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Card : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
+public class Card : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
     public CardData CardData;
     public CardType CardType;
@@ -18,16 +17,13 @@ public class Card : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUp
     public TextMeshProUGUI DeScriptTionText;
 
     private RectTransform rectTransform;
-    private CanvasGroup canvasGroup;
-    private Transform originalPosition;
-    private Transform currentDropZone = null;
-    public GameObject gameObject;
-
+    private Vector3 originalPosition;
+    public Transform currentDropZone = null;
 
     private void Start()
     {
         rectTransform = GetComponent<RectTransform>();
-        originalPosition = this.transform;
+        originalPosition = this.transform.position;
         GetCardInfo();
     }
 
@@ -38,14 +34,16 @@ public class Card : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUp
         HP = CardData.GetHP;
         Power = CardData.GetAttackPowerPower;
         DescriptTions = CardData.GetDescriptsTions;
-
         NameCardText.text = CardName;
         HPText.text = HP.ToString();
         PowerText.text = Power.ToString();
         DeScriptTionText.text = DescriptTions.ToString();
     }
+
     public void OnPointerDown(PointerEventData eventData)
     {
+        // Lưu lại vị trí ban đầu của thẻ bài
+        originalPosition = rectTransform.position;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -55,47 +53,38 @@ public class Card : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUp
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        Debug.Log("pointer up");
 
+        // Kiểm tra nếu thẻ bài được thả vào vùng DropZone
         if (currentDropZone != null)
         {
-            List<Transform> slots = new List<Transform>();
-            foreach (Transform child in currentDropZone)
-            {
-                if (child.CompareTag("Slot"))
-                {
-                    slots.Add(child);
-                }
-            }
-
-            foreach (Transform slot in slots)
-            {
-                if (slot.childCount == 0)
-                {
-                    this.transform.SetParent(slot);
-                    this.transform.position = Vector3.zero;
-                    return;
-                }
-            }
-
-            this.transform.position = originalPosition.position;
+            rectTransform.position = currentDropZone.position;
+            Debug.Log("Thả vào DropZone: " + currentDropZone.name);
         }
         else
         {
-            this.transform.position = originalPosition.position;
+            // Trả lại vị trí ban đầu nếu không thả vào vùng DropZone
+            rectTransform.position = originalPosition;
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.CompareTag("DropZone"))
+        // Kiểm tra nếu collider của thẻ bài chạm vào một đối tượng có tag "DropZone"
+        Debug.Log("OnTriggerEnter2D");
+        if (collision.CompareTag("DropZone"))
         {
-            currentDropZone = other.transform;
+            currentDropZone = collision.transform;
+            Debug.Log("On Drop ZOne");
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (other.CompareTag("DropZone") && currentDropZone == other.transform)
+        Debug.Log("OnTriggerExit2D");
+
+        // Khi rời khỏi vùng DropZone, hủy tham chiếu đến nó
+        if (collision.CompareTag("DropZone"))
         {
             currentDropZone = null;
         }

@@ -414,6 +414,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayZone
       objectReference: {fileID: 0}
+    - target: {fileID: 5502646223010174170, guid: 11ca8c73216a80b48944892a36d37c14, type: 3}
+      propertyPath: m_Size.x
+      value: 628.2727
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502646223010174170, guid: 11ca8c73216a80b48944892a36d37c14, type: 3}
+      propertyPath: m_Size.y
+      value: 652.39636
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502646223010174170, guid: 11ca8c73216a80b48944892a36d37c14, type: 3}
+      propertyPath: m_Offset.x
+      value: -34.74414
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502646223010174170, guid: 11ca8c73216a80b48944892a36d37c14, type: 3}
+      propertyPath: m_Offset.y
+      value: 24.29358
+      objectReference: {fileID: 0}
     - target: {fileID: 8693044133911817749, guid: 11ca8c73216a80b48944892a36d37c14, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
